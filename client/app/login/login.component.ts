@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
+import {LoginService} from "../_services/login.service";
 
 @Component({
     moduleId: module.id,
@@ -12,31 +13,53 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
+    errMessage : string;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
+        private loginService: LoginService,
         private alertService: AlertService) { }
 
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
+        this.loginService.logout();
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error._body);
-                    this.loading = false;
-                });
+        //this.loading = true;
+        this.loginService.login(this.model.username, this.model.password)
+            .subscribe( result => {
+                if( result.success === "true" ) {
+                    this.router.navigate(['']);
+                } else {
+                    this.errMessage = "등록된 사용자가 아닙니다!!";
+                }
+            });
+    }
+    googleLogin() {
+        this.loginService.googleLogin()
+            .subscribe( result => {
+                if( result.success === "true" ) {
+                    this.router.navigate(['']);
+                } else {
+                    this.errMessage = "등록된 사용자가 아닙니다!!";
+                }
+            });
+
+    }
+    facebookLogin() {
+        this.loginService.facebookLogin()
+            .subscribe( result => {
+                if( result.success === "true" ) {
+                    this.router.navigate(['']);
+                } else {
+                    this.errMessage = "등록된 사용자가 아닙니다!!";
+                }
+            });
+
     }
 }

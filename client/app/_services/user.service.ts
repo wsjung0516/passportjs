@@ -8,6 +8,7 @@ import { User } from '../_models/index';
 export class UserService {
     constructor(private http: Http, private config: AppConfig) { }
 
+/*
     getAll() {
         return this.http.get(this.config.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
     }
@@ -27,9 +28,11 @@ export class UserService {
     delete(_id: string) {
         return this.http.delete(this.config.apiUrl + '/users/' + _id, this.jwt());
     }
+*/
 
     // private helper methods
 
+/*
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -38,4 +41,34 @@ export class UserService {
             return new RequestOptions({ headers: headers });
         }
     }
+*/
+
+    getUsers() {
+        //return this.http.get('http://localhost:3000/api/user/');
+        return this.http.get(this.config.apiUrl+'/api/user/');
+    }
+
+    addUser(data:any) {
+        let headers = new Headers({"Content-Type": "application/json"});
+        let options = new RequestOptions({ headers: headers });
+
+        // return this.http.post('http://localhost:3000/adduser', JSON.stringify(data), options)
+        return this.http.post(this.config.apiUrl+'/api/user/add', JSON.stringify(data), options)
+            .map(res => res.json());
+    }
+    updateUser(data:any) {
+        let headers = new Headers({"Content-Type": "application/json"});
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(this.config.apiUrl+'/api/user/update', JSON.stringify(data), options)
+            .map(res => res.json());
+    }
+    deleteUser(data:any) {
+        let headers = new Headers({"Content-Type": "application/json"});
+        let options = new RequestOptions({ headers: headers });
+        var delid = data.id;
+        return this.http.post(this.config.apiUrl+'/api/user/delete', JSON.stringify(data), options)
+            .map(res => res.json());
+    }
+
 }

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="WASS@ec2-52-79-93-119.ap-northeast-2.compute.amazonaws.com">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="WASS">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <table id="6" parent="2" name="CODE_DETAIL">
+      <Comment>코드상세</Comment>
+    </table>
+    <table id="7" parent="2" name="CODE_GROUP">
+      <Comment>코드그룹</Comment>
+    </table>
+    <table id="8" parent="2" name="COLLECT_SVR">
+      <Comment>수집서버</Comment>
+    </table>
+    <table id="9" parent="2" name="TARGET_SYSTEM">
+      <Comment>대상시스템</Comment>
+    </table>
+    <table id="10" parent="2" name="acc_log">
+      <Comment>접속로그</Comment>
+    </table>
+    <table id="11" parent="2" name="employee">
+      <Comment>사용자부서</Comment>
+    </table>
+    <table id="12" parent="2" name="sessions"/>
+    <table id="13" parent="2" name="user_dept">
+      <Comment>시스템사용자부서</Comment>
+    </table>
+    <table id="14" parent="2" name="users"/>
+    <column id="15" parent="6" name="DTL_CD">
+      <Position>1</Position>
+      <Comment>상세코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="6" name="DTL_CD_NM">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="17" parent="6" name="DTL_CD_DESC">
+      <Position>3</Position>
+      <Comment>상세코드설명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="18" parent="6" name="USE_YN">
+      <Position>4</Position>
+      <Comment>사용여부</Comment>
+      <DataType>char(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
+    </column>
+    <column id="19" parent="6" name="GRP_CD">
+      <Position>5</Position>
+      <Comment>그룹코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="6" name="GRP_CD_NM">
+      <Position>6</Position>
+      <Comment>그룹코드명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="21" parent="6" name="DTL_CD_ORDER">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="22" parent="6" name="FK_CODE_DETAIL_GRP_CD">
+      <ColNames>GRP_CD</ColNames>
+    </index>
+    <key id="23" parent="6" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DTL_CD
+GRP_CD</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="24" parent="6" name="FK_CODE_DETAIL_GRP_CD">
+      <ColNames>GRP_CD</ColNames>
+      <RefSchemaName>WASS</RefSchemaName>
+      <RefTableName>CODE_GROUP</RefTableName>
+      <RefColNames>GRP_CD</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="25" parent="7" name="GRP_CD">
+      <Position>1</Position>
+      <Comment>그룹코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="7" name="GRP_CD_DESC">
+      <Position>2</Position>
+      <Comment>그룹코드설명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="27" parent="7" name="USE_YN">
+      <Position>3</Position>
+      <Comment>사용여부</Comment>
+      <DataType>char(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
+    </column>
+    <column id="28" parent="7" name="GRP_CD_NM">
+      <Position>4</Position>
+      <Comment>그룹코드명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <key id="29" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>GRP_CD</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="8" name="CS_CD">
+      <Position>1</Position>
+      <Comment>수집서버코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="8" name="CS_NM">
+      <Position>2</Position>
+      <Comment>수집서버명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="32" parent="8" name="CS_IP">
+      <Position>3</Position>
+      <Comment>수집서버아이피</Comment>
+      <DataType>varchar(16)|0</DataType>
+    </column>
+    <column id="33" parent="8" name="CS_PORT">
+      <Position>4</Position>
+      <Comment>수집서버포트</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="34" parent="8" name="CS_DESC">
+      <Position>5</Position>
+      <Comment>수집서버설명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="35" parent="8" name="USE_YN">
+      <Position>6</Position>
+      <Comment>사용여부</Comment>
+      <DataType>char(1)|0</DataType>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
+    </column>
+    <column id="36" parent="8" name="CS_STATUS">
+      <Position>7</Position>
+      <Comment>수집서버상태</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="37" parent="8" name="CHK_SEC">
+      <Position>8</Position>
+      <Comment>상태점검(초)</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="38" parent="8" name="LAST_CHK_DT">
+      <Position>9</Position>
+      <Comment>최종점검일시</Comment>
+      <DataType>date|0</DataType>
+    </column>
+    <key id="39" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CS_CD</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="40" parent="9" name="TS_IP_ADDR">
+      <Position>1</Position>
+      <Comment>타겟시스템아이피</Comment>
+      <DataType>varchar(15)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="9" name="TS_PORT">
+      <Position>2</Position>
+      <Comment>타겟시스템포트</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="9" name="TS_CD">
+      <Position>3</Position>
+      <Comment>타겟시스템코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="9" name="TS_NM">
+      <Position>4</Position>
+      <Comment>타겟시스템명</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="44" parent="9" name="TS_TYPE">
+      <Position>5</Position>
+      <Comment>타겟시스템타입</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="45" parent="9" name="TS_DESC">
+      <Position>6</Position>
+      <Comment>타겟시스템설명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="46" parent="9" name="USE_YN">
+      <Position>7</Position>
+      <Comment>사용여부</Comment>
+      <DataType>char(1)|0</DataType>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
+    </column>
+    <column id="47" parent="9" name="DT_SEC">
+      <Position>8</Position>
+      <Comment>데이터전송간격(초)</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="48" parent="9" name="ALIVE_CHK_SEC">
+      <Position>9</Position>
+      <Comment>상태점검시간간격(초)</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="49" parent="9" name="TS_STATUS">
+      <Position>10</Position>
+      <Comment>타켓시스템상태</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="50" parent="9" name="COMM_CHK_DT">
+      <Position>11</Position>
+      <Comment>통신점검일시</Comment>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="51" parent="9" name="CS_CD">
+      <Position>12</Position>
+      <Comment>수집서버코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="52" parent="9" name="LOGIN_URI">
+      <Position>13</Position>
+      <Comment>로그인URI</Comment>
+      <DataType>varchar(500)|0</DataType>
+    </column>
+    <column id="53" parent="9" name="LOGOFF_URI">
+      <Position>14</Position>
+      <Comment>로그오프URI</Comment>
+      <DataType>varchar(500)|0</DataType>
+    </column>
+    <column id="54" parent="9" name="ORIG_LOG_SAVE_DURATION">
+      <Position>15</Position>
+      <Comment>원본로그저장주기(월)</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="55" parent="9" name="DB_SAVE_DURATION">
+      <Position>16</Position>
+      <Comment>DB저장주기(월)</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="56" parent="9" name="IDX_TS_CD">
+      <ColNames>TS_CD</ColNames>
+    </index>
+    <key id="57" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TS_CD</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="58" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="59" parent="10" name="date">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="60" parent="10" name="time">
+      <Position>3</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="61" parent="10" name="userName">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="62" parent="10" name="deptName">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="63" parent="10" name="rank">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="64" parent="10" name="telNo">
+      <Position>7</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="65" parent="10" name="loginId">
+      <Position>8</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="66" parent="10" name="IP">
+      <Position>9</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="67" parent="10" name="systemName">
+      <Position>10</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="68" parent="10" name="email">
+      <Position>11</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="69" parent="10" name="appStatus">
+      <Position>12</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="70" parent="10" name="reqCount">
+      <Position>13</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="71" parent="10" name="resCount">
+      <Position>14</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="72" parent="10" name="alertStatus">
+      <Position>15</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="73" parent="10" name="riskStatus">
+      <Position>16</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="74" parent="10" name="auditStatus">
+      <Position>17</Position>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="75" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="76" parent="11" name="userName">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="77" parent="11" name="deptCode">
+      <Position>3</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="78" parent="11" name="rank">
+      <Position>4</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="79" parent="11" name="email">
+      <Position>5</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="80" parent="11" name="enterDate">
+      <Position>6</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="81" parent="11" name="city">
+      <Position>7</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="82" parent="12" name="session_id">
+      <Position>1</Position>
+      <DataType>varchar(128)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="83" parent="12" name="expires">
+      <Position>2</Position>
+      <DataType>int(11) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="12" name="data">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="85" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>session_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="86" parent="13" name="DEPT_CD">
+      <Position>1</Position>
+      <Comment>부서코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="87" parent="13" name="DEPT_NM">
+      <Position>2</Position>
+      <Comment>부서명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="88" parent="13" name="UP_DEPT_CD">
+      <Position>3</Position>
+      <Comment>상위부서코드</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="89" parent="13" name="UP_DEPT_CD_NM">
+      <Position>4</Position>
+      <Comment>상위부서코드명</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="90" parent="13" name="CRT_DT">
+      <Position>5</Position>
+      <Comment>등록일시</Comment>
+      <DataType>datetime|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="91" parent="13" name="UPD_DT">
+      <Position>6</Position>
+      <Comment>수정일시</Comment>
+      <DataType>datetime|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="92" parent="13" name="USE_YN">
+      <Position>7</Position>
+      <Comment>사용여부</Comment>
+      <DataType>char(1)|0</DataType>
+      <DefaultExpression>&apos;Y&apos;</DefaultExpression>
+    </column>
+    <key id="93" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DEPT_CD</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="94" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="95" parent="14" name="authId">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="96" parent="14" name="username">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="97" parent="14" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="98" parent="14" name="salt">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="99" parent="14" name="displayName">
+      <Position>6</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="100" parent="14" name="email">
+      <Position>7</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="101" parent="14" name="authId">
+      <ColNames>authId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="102" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="103" parent="14" name="authId">
+      <ColNames>authId</ColNames>
+      <UnderlyingIndexName>authId</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>
