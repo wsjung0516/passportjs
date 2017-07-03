@@ -16,7 +16,7 @@ module.exports = function (app) {
     exports.loginRouter = loginRouter;
     var user = require('../models/user_mysql');
     //
-    // app.use(cors);
+    app.use('*',cors());
     app.use(session({
         secret: '1234DSFs@adf1234!@#$asd',
         resave: false,
@@ -31,7 +31,6 @@ module.exports = function (app) {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-
 /////////////////
     passport.serializeUser(function (u,done) {
         done(null,u.authId);
@@ -87,7 +86,7 @@ module.exports = function (app) {
         user.sendResponse(false, res);
     });
 ////////////////////////////
-    loginRouter.post('/login/facebook',
+    loginRouter.get('/login/facebook',
         passport.authenticate(
             'facebook'
         )
@@ -156,6 +155,7 @@ module.exports = function (app) {
             return user.sendResponse(true, res);
         });
     });
+
 
     return loginRouter;
 };
