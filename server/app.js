@@ -11,10 +11,15 @@ var cors = require('cors');
 
 //
 exports.app = app;
+app.set('view engine','jade');
+app.set('views','./views');
 
-//app.use(cors());
+app.use(cors());
 // app.use(passport.session());
 app.disable("x-powered-by");
+app.get('/template',function (req,res) {
+        res.render('templ', { title: 'Hey', message: 'Hello there!'});
+});
 app.use('/', express.static(__dirname));
 app.use(body_parser.json());
 app.use(compression());

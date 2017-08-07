@@ -16,7 +16,7 @@ module.exports = function (app) {
     exports.loginRouter = loginRouter;
     var user = require('../models/user_mysql');
     //
-    app.use('*',cors());
+    // app.use('*',cors());
     app.use(session({
         secret: '1234DSFs@adf1234!@#$asd',
         resave: false,
@@ -100,16 +100,18 @@ module.exports = function (app) {
             console.log('profile',profile);
         }
     ));
-    loginRouter.get('/login/facebook/callback',
+    loginRouter.get('/api/auth/login/facebook/callback',
         passport.authenticate('facebook',
             {
                 successRedirect: '/api/auth/facebook-login-success',
                 failureRedirect: '/api/auth/facebook-login-failure'
             }));
     loginRouter.get('/facebook-login-success',function (req,res) {
+        res.send('facebook is called');
         user.sendResponse(true, res);
     });
     loginRouter.get('/facebook-login-failure',function (req,res) {
+        res.send('facebook error is called');
         user.sendResponse(false, res);
     });
 

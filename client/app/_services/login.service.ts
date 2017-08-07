@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by Master on 2017-06-27.
  */
 import { Injectable } from '@angular/core';
@@ -32,8 +32,13 @@ export class LoginService {
 
     }
     facebookLogin() {
-        return this.jsonp.get (this.config.apiUrl+'/api/auth/login/facebook',{})
-            .map (res => res.json());
+        let headers = new Headers({"Content-Type": "application/json"});
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get (this.config.apiUrl+'/api/auth/login/facebook')
+            .map (res => {
+                // console.log("res",res);
+                return res;
+            });
 
     }
     logout() {

@@ -52,14 +52,28 @@ export class LoginComponent implements OnInit {
 
     }
     facebookLogin() {
+        let tempUrl = {
+            nurl: ''
+        };
         this.loginService.facebookLogin()
             .subscribe( result => {
+                var tempId = document.getElementById('tempId');
+                tempUrl.nurl = result.url;
+                console.log("result",tempUrl.nurl);
+/*
+                tempId.innerHTML = result.body;
                 if( result.success === "true" ) {
                     this.router.navigate(['']);
                 } else {
                     this.errMessage = "등록된 사용자가 아닙니다!!";
                 }
+*/
             });
+        setTimeout( () => {
+            alert(tempUrl.nurl);
+            window.open(tempUrl.nurl);
+
+        },1000);
 
     }
 }
