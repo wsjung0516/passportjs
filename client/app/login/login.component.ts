@@ -1,21 +1,24 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import {Component, DoCheck, Inject, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
 import {LoginService} from "../_services/login.service";
-
+import {isUndefined} from "util";
+import { DOCUMENT } from '@angular/platform-browser';
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, DoCheck {
     model: any = {};
     loading = false;
     returnUrl: string;
     errMessage : string;
+    tempUrl: string;
 
     constructor(
+        @Inject(DOCUMENT) private document: any,
         private route: ActivatedRoute,
         private router: Router,
         private loginService: LoginService,
@@ -43,25 +46,8 @@ export class LoginComponent implements OnInit {
     googleLogin() {
         this.loginService.googleLogin()
             .subscribe( result => {
-                if( result.success === "true" ) {
-                    this.router.navigate(['']);
-                } else {
-                    this.errMessage = "등록된 사용자가 아닙니다!!";
-                }
-            });
-
-    }
-    facebookLogin() {
-        let tempUrl = {
-            nurl: ''
-        };
-        this.loginService.facebookLogin()
-            .subscribe( result => {
-                var tempId = document.getElementById('tempId');
-                tempUrl.nurl = result.url;
-                console.log("result",tempUrl.nurl);
+                this.tempUrl = result.url;
 /*
-                tempId.innerHTML = result.body;
                 if( result.success === "true" ) {
                     this.router.navigate(['']);
                 } else {
@@ -69,11 +55,25 @@ export class LoginComponent implements OnInit {
                 }
 */
             });
-        setTimeout( () => {
-            alert(tempUrl.nurl);
-            window.open(tempUrl.nurl);
 
-        },1000);
-
+    }
+    facebookLogin() {
+        this.loginService.facebookLogin()
+            .subscribe( result => {
+                this.tempUrl = result.url;
+/*
+                if( result.success === "true" ) {
+                    this.router.navigate(['']);
+                } else {
+                    this.errMessage = "등록된 사용자가 아닙니다!!";
+                }
+*/
+            });
+    }
+    ngDoCheck() {
+        if( this.tempUrl) {
+            this.document.location.href = this.tempUrl;
+            console.log('this.tmepUrl', this.tempUrl);
+        }
     }
 }

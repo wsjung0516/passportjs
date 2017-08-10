@@ -25,15 +25,24 @@ export class LoginService {
 
     }
     googleLogin() {
-        let headers = new Headers({"Content-Type": "application/json"});
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.config.apiUrl+'/api/auth/login/google',{},options)
-            .map (res => res.json());
+
+        const headers: Headers = new Headers();
+        // headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        // headers.append('Access-Control-Allow-Methods', 'GET');
+        headers.append('Access-Control-Allow-Origin', 'http://localhost:3001');
+
+        const options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.get(this.config.apiUrl+'/api/auth/login/google',options)
+            .map (res => {
+                console.log("googleLogin res",res);
+                return res;
+            });
 
     }
     facebookLogin() {
-        let headers = new Headers({"Content-Type": "application/json"});
-        let options = new RequestOptions({ headers: headers });
         return this.http.get (this.config.apiUrl+'/api/auth/login/facebook')
             .map (res => {
                 // console.log("res",res);

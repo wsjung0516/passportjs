@@ -31,6 +31,7 @@ module.exports = function (app) {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+
 /////////////////
     passport.serializeUser(function (u,done) {
         done(null,u.authId);
@@ -88,19 +89,26 @@ module.exports = function (app) {
 ////////////////////////////
     loginRouter.get('/login/facebook',
         passport.authenticate(
-            'facebook'
+            'facebook', {
+                authType: 'rerequest', scope: ['public_profile', 'email']
+            }
         )
     );
     passport.use(new FacebookStrategy({
+/*
             clientID: '1390215267682875',
             clientSecret: '4196692a5f5d5e110d99d5d3f8c77fd2',
-            callbackURL: "/api/auth/login/facebook/callback"
+*/
+            clientID: '1390215267682875',
+            clientSecret: '4196692a5f5d5e110d99d5d3f8c77fd2',
+            callbackURL: "http://localhost:3000/api/auth/login/facebook/callback"
         },
         function(accessToken, refreshToken, profile, done) {
             console.log('profile',profile);
+            done ( null, profile);
         }
     ));
-    loginRouter.get('/api/auth/login/facebook/callback',
+    loginRouter.get('/login/facebook/callback',
         passport.authenticate('facebook',
             {
                 successRedirect: '/api/auth/facebook-login-success',
@@ -125,31 +133,45 @@ module.exports = function (app) {
         },
         function(accessToken, refreshToken, profile, done) {
                 console.log("profile",profile);
-                return done(err, user);
-/*
-            User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            });
-*/
+               process.nextTick(function () {
+                  return done(null, profile);
+               });
+          //  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+          //  });
         }
     ));
 
-    loginRouter.post('/login/google',
+    loginRouter.get('/login/google',
         passport.authenticate(
+            'google', { scope: ['profile'] } ), function (req,res) {
+                res.send('google called');
+        });
+/*
             'google', { scope: ["https://www.googleapis.com/auth/plus.login",
                 "https://www.googleapis.com/auth/plus.profile.emails.read"] } ));
+*/
 
     loginRouter.get('/login/google/callback',
         passport.authenticate('google',
             {
+                failureRedirect: '/api/auth/google-login-failure'
+            }),function (req,res) {
+                console.log("req.query", req.query);
+                res.redirect('/api/auth/google-login-success');
+        });
+/*
+            {
                 successRedirect: '/api/auth/google-login-success',
                 failureRedirect: '/api/auth/google-login-failure'
             }));
+*/
     loginRouter.get('/google-login-success',function (req,res) {
         user.sendResponse(true, res);
     });
     loginRouter.get('/google-login-failure',function (req,res) {
         user.sendResponse(false, res);
     });
+
 //////////////////////////////
     loginRouter.get('/logout', function (req, res) {
         delete req.session.displayName;
