@@ -14,7 +14,7 @@ exports.app = app;
 app.set('view engine','jade');
 app.set('views','./views');
 
-app.use('*',cors());
+app.all('*',cors());
 // app.use(passport.session());
 app.disable("x-powered-by");
 app.get('/template',function (req,res) {
@@ -22,8 +22,8 @@ app.get('/template',function (req,res) {
 });
 /*----------- 2017.8.9 -------------*/
 /*
-app.all('/!*',cors(), function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
+app.all('*',cors(), function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3001');
     // res.header('Access-Control-Allow-Methods', 'POST GET');
     res.header('Access-Control-Allow-Headers', 'Origin','content-type', 'Accept','Access-Control-Allow-Headers, Authorization, X-Requested-With');
     // res.header('Access-Control-Allow-Credentials', true);

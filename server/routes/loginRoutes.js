@@ -143,13 +143,13 @@ module.exports = function (app) {
 
     loginRouter.get('/login/google',
         passport.authenticate(
-            'google', { scope: ['profile'] } ), function (req,res) {
-                res.send('google called');
-        });
 /*
+            'google', { scope: ['profile'] } ), function (req,res) {
+                res.send('success');
+        });
+*/
             'google', { scope: ["https://www.googleapis.com/auth/plus.login",
                 "https://www.googleapis.com/auth/plus.profile.emails.read"] } ));
-*/
 
     loginRouter.get('/login/google/callback',
         passport.authenticate('google',

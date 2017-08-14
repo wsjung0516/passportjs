@@ -30,13 +30,13 @@ export class LoginService {
 
         const headers: Headers = new Headers();
         // headers.append('Accept', 'application/json');
-        // headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Access-Control-Allow-Origin', 'http://localhost:3001');
+        // headers.append('Content-Type', 'application/json');
+        // headers.append('Access-Control-Request-Method', 'Content-Type');
 
         const options = new RequestOptions({
             headers: headers
         });
-        return this.http.get(this.config.apiUrl+'/api/auth/login/google',options)
+        return this.http.get(this.config.apiUrl+'/api/auth/login/google')
             .map (res => {
                 console.log("googleLogin res",res);
                 return res;
