@@ -14,13 +14,15 @@ export class LoginService {
     constructor(private jsonp:Jsonp, private http: Http, private config: AppConfig) {}
 
     login(username: string, password: string) {
-        let headers = new Headers({"Content-Type": "application/json"});
+        // let headers = new Headers();
+        let headers = new Headers({ 'Access-Control-Request-Headers': "Content-Type", 'Content-Type': 'application/json'});
+        headers.append('Access-Control-Request-Methods', 'POST');
         let options = new RequestOptions({ headers: headers });
         var data = {
             username : username,
             password : password
         };
-        return this.http.post(this.config.apiUrl+'/api/auth/login', data,options )
+        return this.http.post(this.config.apiUrl+'/api/auth/login', data)
             .map (res => res.json());
 
     }
@@ -28,8 +30,7 @@ export class LoginService {
 
         const headers: Headers = new Headers();
         // headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        // headers.append('Access-Control-Allow-Methods', 'GET');
+        // headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Access-Control-Allow-Origin', 'http://localhost:3001');
 
         const options = new RequestOptions({

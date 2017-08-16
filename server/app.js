@@ -14,22 +14,23 @@ exports.app = app;
 app.set('view engine','jade');
 app.set('views','./views');
 
-// app.use(cors());
+app.use('*',cors());
 // app.use(passport.session());
 app.disable("x-powered-by");
 app.get('/template',function (req,res) {
         res.render('templ', { title: 'Hey', message: 'Hello there!'});
 });
 /*----------- 2017.8.9 -------------*/
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3001');
-    res.header('Access-Control-Allow-Methods', 'POST GET');
-    res.header('Access-Control-Allow-Headers', 'Content-Type', 'Accept','Access-Control-Allow-Headers');
-    // res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Max-Age', 1728000);
+/*
+app.all('/!*',cors(), function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    // res.header('Access-Control-Allow-Methods', 'POST GET');
+    res.header('Access-Control-Allow-Headers', 'Origin','content-type', 'Accept','Access-Control-Allow-Headers, Authorization, X-Requested-With');
+    // res.header('Access-Control-Allow-Credentials', true);
+    // res.header('Access-Control-Max-Age', 1728000);
     next();
 });
+*/
 /*----------------------------------*/
 
 app.use('/', express.static(__dirname));

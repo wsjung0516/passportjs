@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var HelloFunc = function () {
+        this.greeting = 'hello';
+    }
+    HelloFunc.prototype.call = function (func) {
+        func ? func(this.greeting) : this.func(this.greeting);
+    }
+    var myFunc = function(greeting){
+        console.log (greeting);
+    };
+    var newHello = new HelloFunc();
+    newHello.func = myFunc;
+    // newHello.call();
+
+    var saySomethig = function (obj, method, name) {
+        return(function (greeting) {
+            return obj[method](greeting,name);
+        })
+    }
+    var newFunc = function (obj,name) {
+        obj.func = saySomethig(this, "who",name);
+        return obj;
+    }
+    newFunc.prototype.who = function (greeting,name) {
+        console.log(greeting +''+ name)
+    }
+    var obj1 = new newFunc(newHello, 'Jung');
+    obj1.call();
+
+</script>
+
+</body>
+</html>
